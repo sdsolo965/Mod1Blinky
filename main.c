@@ -1,33 +1,39 @@
 #include <stdio.h>
-
-void multBy2(int *var2)
-{
-    *var2 = *var2 * 2;
-
-}
-
-int practice()
-{
-    ///Pointers
-    int var1;
-    printf("The address of var1 is %x \n", &var1);
-
-    int var3 = 10;
-    multBy2(&var1);
-    printf("var1 = %d \n", var1);
-
-    ///Data types and variables
-    float x = 12.345678;
-    printf("The value of x is %0.5f \n", x);
-    
-    return 0;
-}
+#include "./wiring.h"
 
 int main(int argc, char *argv[])
 {
-    printf("connected\n");
+    setupWiringPi();
 
-    practice();
+    int redPin = 7;
+    int bluePin = 22;
+    int iterations = 10;
+    int delay = 250;
+
+    setPinMode(redPin, OUTPUT);
+    setPinMode(bluePin, OUTPUT);
+
+    for (int i = 1; i <= iterations; i++)
+    {
+        // Red LED
+        printf("Red LED on - #%d\n", i);
+        writeToPin(redPin, HIGH);
+        wait(delay);
+        printf("Red LED off - #%d\n", i);
+        writeToPin(redPin, LOW);
+
+        wait(delay);
+
+        // Blue LED
+        printf("Blue LED on - #%d\n", i);
+        writeToPin(bluePin, HIGH);
+        wait(delay);
+        printf("Blue LED off - #%d\n", i);
+        writeToPin(bluePin, LOW);
+
+        wait(delay);
+
+    }
 
     return 0;
 }
